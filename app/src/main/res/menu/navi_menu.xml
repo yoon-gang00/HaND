@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/LuckFragment"
+        android:title="운세"
+        android:icon="@drawable/outline_cruelty_free_24"/>
+    <item
+        android:id="@+id/WeatherFragment"
+        android:title="날씨"
+        android:icon="@drawable/outline_wb_sunny_24"/>
+    <item
+        android:id="@+id/MyFragment"
+        android:title="홈"
+        android:icon="@drawable/baseline_person_outline_24"/>
+    <item
+        android:id="@+id/HomeFragment"
+        android:title="홈"
+        android:icon="@drawable/outline_home_24"/>
+    ≈
+</menu>
