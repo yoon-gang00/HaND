@@ -15,14 +15,25 @@ class NaviActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNaviBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_navi)
+        setContentView(binding.root)
+
+        //기본을 보여질 Fragment를 HomeFragment로 설정
         setFragment(TAG_HOME, HomeFragment())
+
+        // Get the FragmentManager
+        val fragmentManager = supportFragmentManager
+
+        // Add the MyFragment
+        val myFragment = MyFragment.newInstance()  // MyFragment의 companion object를 사용해야 함
+        fragmentManager.beginTransaction()
+            .add(R.id.mainFrameLayout, myFragment, TAG_MY)
+            .commit()
 
         binding.navigationView.setOnItemSelectedListener{ item ->
             when (item.itemId) {
                 R.id.HomeFragment -> setFragment(TAG_HOME, HomeFragment())
                 R.id.LuckFragment -> setFragment(TAG_LUCK, LuckFragment())
-                R.id.MyFragment -> setFragment(TAG_MY, MyFragment())
+                R.id.MyFragment -> setFragment(TAG_MY, MyFragment.newInstance())
                 R.id.WeatherFragment -> setFragment(TAG_WEATHER, WeatherFragment())
             }
             true
