@@ -17,17 +17,20 @@ class NaviActivity : AppCompatActivity() {
         binding = ActivityNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //기본을 보여질 Fragment를 HomeFragment로 설정
-        setFragment(TAG_HOME, HomeFragment())
-
         // Get the FragmentManager
         val fragmentManager = supportFragmentManager
 
-        // Add the MyFragment
-        val myFragment = MyFragment.newInstance()  // MyFragment의 companion object를 사용해야 함
-        fragmentManager.beginTransaction()
-            .add(R.id.mainFrameLayout, myFragment, TAG_MY)
-            .commit()
+        // Add the MyFragment only if it hasn't been added before
+        if (fragmentManager.findFragmentByTag(TAG_MY) == null) {
+            val myFragment = MyFragment.newInstance()
+            fragmentManager.beginTransaction()
+                .add(R.id.mainFrameLayout, myFragment, TAG_MY)
+                .commit()
+        }
+
+        // Set the default selected item in the bottom navigation to HomeFragment
+        binding.navigationView.selectedItemId = R.id.MyFragment
+
 
         binding.navigationView.setOnItemSelectedListener{ item ->
             when (item.itemId) {
@@ -67,9 +70,9 @@ class NaviActivity : AppCompatActivity() {
             fragTransaction.hide(weather)
         }
 
-        if (tag == TAG_LUCK) {
-            if (luck!=null){
-                fragTransaction.show(luck)
+        if (tag == TAG_MY) {
+            if (my != null){
+                fragTransaction.show(my)
             }
         }
         else if (tag == TAG_HOME) {
@@ -78,9 +81,9 @@ class NaviActivity : AppCompatActivity() {
             }
         }
 
-        else if (tag == TAG_MY){
-            if (my != null){
-                fragTransaction.show(my)
+        else if (tag == TAG_LUCK){
+            if (luck!=null){
+                fragTransaction.show(luck)
             }
         }
         else if (tag == TAG_WEATHER){
